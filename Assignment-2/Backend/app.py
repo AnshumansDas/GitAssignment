@@ -8,7 +8,7 @@ import pymongo
 load_dotenv()#load the environment variables from the .env file
 mongo_uri = os.getenv("MONGO_URI")#get the MongoDB connection string from the environment variable
 client = pymongo.MongoClient(mongo_uri)#create a MongoDB client using the connection string
-db = client.test#Create the DB and connect to the test database
+db = client.ItemList#Create the DB and connect to the itemList database
 collection = db['assignment']#create a collection named flask_tutorials in the test database
 
 app=Flask(__name__)#create the instance of the flask app
@@ -30,6 +30,15 @@ def view_data():
     data={'data':data}
     #return render_template('view.html', data=data)  # Render the view.html template with the retrieved data
     return  (jsonify(data))  # Render the view.html template with the retrieved data
+
+@app.route('/submittodoitem',methods=['POST'])
+def save_Item():
+    try:
+        form_data = dict(request.json)#changed to json from form
+        collection.insert_one(form_data)
+        return "Data submitted successfully!"
+    except(json.JSONDecodeError, OSError):
+        return {OSError}
 
 #run the app
 if __name__ == '__main__':
