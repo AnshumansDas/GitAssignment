@@ -34,7 +34,7 @@ def get_data():
     except Exception as e:
         raise Exception(f"Unable to read data file: {str(e)}")
 
-@app.route('saveitem',methods=['POST'])
+@app.route('/saveitem',methods=['POST'])
 def saveitem():
     form_data = dict(request.form)
     try:
