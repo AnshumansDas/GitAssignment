@@ -34,6 +34,21 @@ def get_data():
     except Exception as e:
         raise Exception(f"Unable to read data file: {str(e)}")
 
+@app.route('saveitem',methods=['POST'])
+def saveitem():
+    form_data = dict(request.form)
+    try:
+        if form_data is not None:
+            request.post(BACKEND_URL+'/submittodoitem',json=form_data)
+            return "Data Submitted Successfully!"
+        else:
+            return "Error Occured in submitting the value Tray Again !"
+
+    except Exception as e:
+        print(form_data)
+        return render_template('todo.html',msg = f"Unable to save data : {str(e)}")
+        #raise Exception(f"Unable to save data : {str(e)}")
+
 #run the app
 if __name__ == '__main__':
     #app.run(debug=True)#run the app in debug mode
