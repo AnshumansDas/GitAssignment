@@ -39,7 +39,7 @@ def saveitem():
     form_data = dict(request.form)
     try:
         if form_data is not None:
-            request.post(BACKEND_URL+'/submittodoitem',json=form_data)
+            requests.post(BACKEND_URL+'/submittodoitem',json=form_data)
             return "Data Submitted Successfully!"
         else:
             return "Error Occured in submitting the value Tray Again !"
